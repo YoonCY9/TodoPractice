@@ -29,6 +29,11 @@ public class ToDoRestController {
         return service.completedRead();
     }
 
+    @GetMapping("/specific/{id}")
+    public List<ToDoSpecificDTO> specific(@PathVariable Long id) {
+        return service.specificRead(id);
+    }
+
     @PutMapping("/titles/complete/{id}")
     public void isCompleted(@PathVariable Long id, @Valid @RequestBody ToDoCompletedDTO dto) {
         service.isCompleted(dto);

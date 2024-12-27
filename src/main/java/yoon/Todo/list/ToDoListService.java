@@ -5,6 +5,7 @@ import yoon.Todo.toDo.ToDoResponse;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ToDoListService {
@@ -23,6 +24,10 @@ public class ToDoListService {
     public List<ToDoListResponse> read() {
         List<ToDoList> alls = toDoListRepository.findAll();
         return alls.stream().map(a -> new ToDoListResponse(a.getTitle(), a.getId())).toList();
+    }
+
+    public List<ToDoListResponse> taskCount(Long id) {
+        int count = 0;
     }
 
     public void update(Long id, CreateListDTO dto) {

@@ -28,6 +28,11 @@ public class ToDoService {
         return alls.stream().map(a -> new ToDoResponse(a.getTitle(), a.getId())).toList();
     }
 
+    public List<ToDoSpecificDTO> specificRead(Long id) {
+        List<ToDo> specs = repository.findByToDoListId(id);
+        return specs.stream().map(s -> new ToDoSpecificDTO(s.getTitle())).toList();
+    }
+
     public List<ToDoCompletedDTO> completedRead() {
         List<ToDo> completeds = repository.findByCompleted(true);
         return completeds.stream().map(c -> new ToDoCompletedDTO(c.getId(),c.getTitle(), c.isCompleted())).toList();
