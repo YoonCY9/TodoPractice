@@ -1,4 +1,9 @@
 package yoon.Todo.toDo;
 
-public record ToDoResponse(String title, Long id) {
+import jakarta.validation.constraints.Size;
+
+public record ToDoResponse(
+        @Size(min = 1, max = 10)
+        String title,
+        Long id) {
 }

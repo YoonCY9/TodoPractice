@@ -2,7 +2,9 @@ package yoon.Todo.toDo;
 
 public class ToDoDTO {
 
-    String title;
+    private String title;
+
+    private long listId;
 
     public ToDoDTO() {
     }
@@ -17,5 +19,9 @@ public class ToDoDTO {
 
     public String getTitle() {
         return title;
+    }
+
+    public long getListId() {
+        return listId;
     }
 }
