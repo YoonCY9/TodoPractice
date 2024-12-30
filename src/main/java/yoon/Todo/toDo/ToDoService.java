@@ -29,8 +29,8 @@ public class ToDoService {
     }
 
     public List<ToDoSpecificDTO> specificRead(Long id) {
-        List<ToDo> specs = repository.findByToDoListId(id);
-        return specs.stream().map(s -> new ToDoSpecificDTO(s.getTitle())).toList();
+        List<ToDo> specs = repository.findByListId(id);
+        return specs.stream().map(s -> new ToDoSpecificDTO(s.getTitle(), s.getId())).toList();
     }
 
     public List<ToDoCompletedDTO> completedRead() {

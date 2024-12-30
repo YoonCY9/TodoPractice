@@ -1,6 +1,7 @@
 package yoon.Todo.toDo;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import yoon.Todo.list.ToDoList;
 
 @Entity
@@ -24,6 +25,15 @@ public class ToDo {
     public ToDo(String title, ToDoList list) {
         this.title = title;
         this.list = list;
+    }
+
+    public ToDo(Long id, String title) {
+        this.id = id;
+        this.title = title;
+    }
+
+    public ToDo(Long id) {
+        this.id = id;
     }
 
     public void setCompleted(boolean completed) {

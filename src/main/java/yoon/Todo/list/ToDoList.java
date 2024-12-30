@@ -1,9 +1,10 @@
 package yoon.Todo.list;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import yoon.Todo.toDo.ToDo;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class ToDoList {
@@ -13,6 +14,9 @@ public class ToDoList {
     private Long id;
 
     private String title;
+
+    @OneToMany(mappedBy = "list")
+    private List<ToDo> toDos = new ArrayList<>();
 
     public ToDoList() {
     }
@@ -27,6 +31,10 @@ public class ToDoList {
 
     public String getTitle() {
         return title;
+    }
+
+    public List<ToDo> getToDos() {
+        return toDos;
     }
 
     public void setTitle(String title) {

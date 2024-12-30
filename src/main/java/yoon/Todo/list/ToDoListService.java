@@ -1,6 +1,8 @@
 package yoon.Todo.list;
 
 import org.springframework.stereotype.Service;
+import yoon.Todo.toDo.ToDo;
+import yoon.Todo.toDo.ToDoRepository;
 import yoon.Todo.toDo.ToDoResponse;
 
 import java.util.ArrayList;
@@ -11,9 +13,11 @@ import java.util.Map;
 public class ToDoListService {
 
     private final ToDoListRepository toDoListRepository;
+    private final ToDoRepository toDoRepository;
 
-    public ToDoListService(ToDoListRepository toDoListRepository) {
+    public ToDoListService(ToDoListRepository toDoListRepository, ToDoRepository toDoRepository) {
         this.toDoListRepository = toDoListRepository;
+        this.toDoRepository = toDoRepository;
     }
 
     public void create(CreateListDTO list) {
@@ -26,9 +30,18 @@ public class ToDoListService {
         return alls.stream().map(a -> new ToDoListResponse(a.getTitle(), a.getId())).toList();
     }
 
-    public List<ToDoListResponse> taskCount(Long id) {
-        int count = 0;
+    public ListAllRead allRead(Long listId) {
+        // 해당 아디값에 맞는 todo들 리스트 생성
+        List<ToDo> toDos = toDoRepository.findByListId(listId);
+        // 그 리스트를 ToDoResponse로 변환
+        List<ToDoResponse> aa =
+                toDos.stream().map(t -> new ToDoResponse(t.getTitle(),t.getId()))
+                        .toList();
+        return new ListAllRead(listId, toDoListRepository.
+                findById(listId).orElseThrow().getTitle(), aa);
     }
+
+
 
     public void update(Long id, CreateListDTO dto) {
         ToDoList list1 = toDoListRepository.findById(id).orElseThrow();

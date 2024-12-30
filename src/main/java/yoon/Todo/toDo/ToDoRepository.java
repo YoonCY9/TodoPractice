@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface ToDoRepository extends JpaRepository<ToDo, Long> {
     List<ToDo> findByCompleted(boolean completed);
-    List<ToDo> findByToDoListId(Long id);
+    // id값을 받아서 해당 아디값에 맞는 toDo들을 반환
+    List<ToDo> findByListId(Long listId);
 }
