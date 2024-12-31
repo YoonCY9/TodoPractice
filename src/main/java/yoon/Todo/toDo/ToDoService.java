@@ -33,11 +33,16 @@ public class ToDoService {
         return specs.stream().map(s -> new ToDoSpecificDTO(s.getTitle(), s.getId())).toList();
     }
 
+    public List<ToDoSearchResponse> search(String title) {
+        // 목록에 관계없이 해당 문자열이 포함된 할일리스트 조회
+        List<ToDo> toDos = repository.findByTitleContaining(title);
+        return toDos.stream().map(t -> new ToDoSearchResponse(t.getTitle(),t.getId(),t.isCompleted())).toList();
+    }
+
     public List<ToDoCompletedDTO> completedRead() {
         List<ToDo> completeds = repository.findByCompleted(true);
         return completeds.stream().map(c -> new ToDoCompletedDTO(c.getId(),c.getTitle(), c.isCompleted())).toList();
     }
-
 
     public void isCompleted(ToDoCompletedDTO dto) {
         ToDo toDo = repository.findById(dto.id()).orElseThrow();
@@ -56,5 +61,8 @@ public class ToDoService {
         repository.delete(toDo);
     }
 
-
+    public ToDoSearchResponse toDoSerch(Long id) {
+        ToDo toDo = repository.findById(id).orElseThrow();
+        return new ToDoSearchResponse(toDo.getTitle(), toDo.getId(), toDo.isCompleted());
+    }
 }

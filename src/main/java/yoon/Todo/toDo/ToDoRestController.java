@@ -34,6 +34,12 @@ public class ToDoRestController {
         return service.specificRead(id);
     }
 
+    @GetMapping("/titles/{title}")
+    // 목록에 관계 없이, 할 일 ‘검색Search’
+    public List<ToDoSearchResponse> toDoSearch(@PathVariable String title) {
+        return service.search(title);
+    }
+
     @PutMapping("/titles/complete/{id}")
     public void isCompleted(@PathVariable Long id, @Valid @RequestBody ToDoCompletedDTO dto) {
         service.isCompleted(dto);

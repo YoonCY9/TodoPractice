@@ -32,8 +32,6 @@ public class ToDoListRestController {
         return toDoListService.allRead(listId);
     }
 
-
-
     @PutMapping("lists/{id}")
     public void update(@PathVariable Long id, @Valid @RequestBody CreateListDTO dto) {
         toDoListService.update(id, dto);

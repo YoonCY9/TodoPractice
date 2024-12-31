@@ -8,4 +8,6 @@ public interface ToDoRepository extends JpaRepository<ToDo, Long> {
     List<ToDo> findByCompleted(boolean completed);
     // id값을 받아서 해당 아디값에 맞는 toDo들을 반환
     List<ToDo> findByListId(Long listId);
+    // 해당 문자열이 포함된 ToDo들을 반환
+    List<ToDo> findByTitleContaining(String keyword);
 }

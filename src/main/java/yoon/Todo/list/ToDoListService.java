@@ -1,10 +1,12 @@
 package yoon.Todo.list;
 
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import yoon.Todo.toDo.ToDo;
 import yoon.Todo.toDo.ToDoRepository;
 import yoon.Todo.toDo.ToDoResponse;
 
+import java.beans.Transient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -41,17 +43,21 @@ public class ToDoListService {
                 findById(listId).orElseThrow().getTitle(), aa);
     }
 
-
-
+    @Transactional
     public void update(Long id, CreateListDTO dto) {
         ToDoList list1 = toDoListRepository.findById(id).orElseThrow();
         list1.setTitle(dto.title());
         toDoListRepository.save(list1);
     }
 
-
+    @Transactional
     public void delete(Long id) {
+        List<ToDo> toDos = toDoRepository.findByListId(id);
+        for (ToDo toDo : toDos) {
+            toDoRepository.deleteById(toDo.getId());
+        }
         ToDoList list1 = toDoListRepository.findById(id).orElseThrow();
         toDoListRepository.delete(list1);
+
     }
 }
